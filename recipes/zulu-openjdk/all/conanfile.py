@@ -34,6 +34,7 @@ class ZuluOpenJDK(ConanFile):
         if self._settings_build.os not in supported_os:
             raise ConanInvalidConfiguration(f"Unsupported os ({self._settings_build.os}). "
                                              "This package currently only support {supported_os}.")
+     #    TODO : Validate for Visual Studio Compiler on Windows, If MinGW is the compiler - warn about linking problems
 
     def build(self):
         get(self, **self.conan_data["sources"][self.version][str(self._settings_build.os)][str(self._settings_build.arch)], strip_root=True)
@@ -60,7 +61,7 @@ class ZuluOpenJDK(ConanFile):
 
     def package_info(self):
         self.cpp_info.includedirs.append(self._jni_folder)
-        self.cpp_info.libdirs = []
+     #    self.cpp_info.libdirs = []
 
         java_home = self.package_folder
         bin_path = os.path.join(java_home, "bin")
